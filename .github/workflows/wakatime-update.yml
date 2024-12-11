@@ -1,0 +1,19 @@
+name: Wakatime Update
+
+on:
+  schedule:
+    # 每5分钟触发一次
+    - cron: '*/5 * * * *'
+
+jobs:
+  update-wakatime:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Update Wakatime data
+      run: |
+        # 调用你自己的更新脚本，假设你已经配置了 Python 脚本来模拟编码活动
+        python update_wakatime.py
