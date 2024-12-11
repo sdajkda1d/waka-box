@@ -1,19 +1,17 @@
-name: Wakatime Update
-
+name: Update gist with WakaTime stats
 on:
   schedule:
-    # 每5分钟触发一次
-    - cron: '*/5 * * * *'
-
+    - cron: "0 0 * * *"
+  # Manual triggers with workflow_dispatch
+  workflow_dispatch:
 jobs:
-  update-wakatime:
+  update-gist:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Update Wakatime data
-      run: |
-        # 调用你自己的更新脚本，假设你已经配置了 Python 脚本来模拟编码活动
-        python update_wakatime.py
+      - uses: actions/checkout@master
+      - name: Update gist
+        uses: matchai/waka-box@master
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GIST_ID: ${{ secrets.GIST_ID }}
+          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
